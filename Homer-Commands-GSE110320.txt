@@ -1,0 +1,46 @@
+# Creating Tag Directories
+# http://homer.ucsd.edu/homer/ngs/tagDir.html
+# makeTagDirectory <Output Directory Name> [options] <alignment file1> [alignment file 2] ...
+# Example: makeTagDirectory Macrophage-PU.1-ChIP-Seq/ pu1.lane1.bed pu1.lane2.bed pu1.lane3.bed
+
+makeTagDirectory Control_Input/ SRR6686554_Aligned.sortedByCoord.out.bam SRR6686555_Aligned.sortedByCoord.out.bam SRR6686556_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory Control_m6A/ SRR6686557_Aligned.sortedByCoord.out.bam SRR6686558_Aligned.sortedByCoord.out.bam SRR6686559_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shMETTL3_Input/ SRR6686560_Aligned.sortedByCoord.out.bam SRR6686561_Aligned.sortedByCoord.out.bam SRR6686562_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shMETTL3_m6A/ SRR6686563_Aligned.sortedByCoord.out.bam SRR6686564_Aligned.sortedByCoord.out.bam SRR6686565_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shMETTL14_Input/ SRR6686566_Aligned.sortedByCoord.out.bam SRR6686567_Aligned.sortedByCoord.out.bam SRR6686568_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shMETTL14_m6A/ SRR6686569_Aligned.sortedByCoord.out.bam SRR6686570_Aligned.sortedByCoord.out.bam SRR6686571_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shWTAP_Input/ SRR6686578_Aligned.sortedByCoord.out.bam SRR6686579_Aligned.sortedByCoord.out.bam SRR6686580_Aligned.sortedByCoord.out.bam
+
+makeTagDirectory shWTAP_m6A/ SRR6686581_Aligned.sortedByCoord.out.bam SRR6686582_Aligned.sortedByCoord.out.bam SRR6686583_Aligned.sortedByCoord.out.bam
+
+
+# Move all Tag directories to ../Homer_Analysis/
+
+# Finding Enriched Peaks, Regions, and Transcripts
+# http://homer.ucsd.edu/homer/ngs/peaks.html
+# findPeaks <tag directory> -style factor -o auto -i <input tag directory>
+# Example: findPeaks ERalpha-ChIP-Seq/ -style factor -o auto -i MCF7-input-ChIP-Seq
+
+
+findPeaks Control_m6A/ -style factor -o auto -i Control_Input/
+findPeaks shMETTL3_m6A/ -style factor -o auto -i shMETTL3_Input/
+findPeaks shMETTL14_m6A/ -style factor -o auto -i shMETTL14_Input/
+findPeaks shWTAP_m6A/ -style factor -o auto -i shWTAP_Input/
+
+
+# Annotating Regions in the Genome (annotatePeaks.pl)
+# http://homer.ucsd.edu/homer/ngs/annotation.html
+# Exmple: annotatePeaks.pl ERpeaks.txt hg18 -gtf gencode.gtf  > outputfile.txt
+
+annotatePeaks.pl ./Control_m6A/peaks.txt hg38 -gtf Homo_sapiens.GRCh38.103.gtf > Control_m6A-Peaks.txt
+annotatePeaks.pl ./shMETTL3_m6A/peaks.txt hg38 -gtf Homo_sapiens.GRCh38.103.gtf > shMETTL3_m6A-Peaks.txt
+annotatePeaks.pl ./shMETTL14_m6A/peaks.txt hg38 -gtf Homo_sapiens.GRCh38.103.gtf > shMETTL14_m6A-Peaks.txt
+annotatePeaks.pl ./shWTAP_m6A/peaks.txt hg38 -gtf Homo_sapiens.GRCh38.103.gtf > shWTAP_m6A-Peaks.txt
+
+

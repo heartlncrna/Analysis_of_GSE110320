@@ -1,0 +1,17 @@
+# For Volcano plot via R
+# http://barc.wi.mit.edu/education/bioinfo2007/arrays/array_exercises_3R.html
+
+library(ggplot2)
+
+data <- read.delim("GSE110320-shCtrl_shWTAP-GRCh38.103-Stranded-Ratio-Volcano.txt", header=T)
+
+png("GSE110320-shCtrl_shWTAP-GRCh38.103-Stranded-Ratio-Volcano.png")
+
+plot(data$logFC, -log(data$FDR, 10), xlab="log2(FoldChange)", ylab="-log10(p-value)", pch = 19, col=data$Color)
+
+abline(v=1, lty = 2)
+abline(v=-1, lty = 2)
+abline (h=1.301029996, lty=2)
+
+print()
+dev.off()
